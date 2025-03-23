@@ -1,8 +1,12 @@
 <script setup>
 import Github from "../assets/GitHub.vue";
 import { useMarkdownStore } from "../stores/markdown";
+import { ref } from "vue";
 
 const markdownCode = useMarkdownStore();
+
+const copyText = ref("Copy");
+const timeoutData = null;
 
 function handleCheckSyncUpdate(e) {
   markdownCode.syncScroll = Boolean(e.target.checked);
@@ -11,6 +15,16 @@ function handleCheckSyncUpdate(e) {
 function handleGithubClick() {
   window.location.href = "https://github.com/SomnathKar000/MDEditor";
 }
+function handleCopy() {
+  if (timeoutData) {
+    clearTimeout(timeoutData);
+  }
+  markdownCode.copyMarkdownCode();
+  copyText.value = "Copied!";
+  timeoutData = setTimeout(() => {
+    copyText.value = "Copy";
+  }, 1000);
+}
 </script>
 <template>
   <div class="navbar">
@@ -18,7 +32,7 @@ function handleGithubClick() {
       <img src="/logo2.png" width="40px" />
       <button>MDEditor</button
       ><button @click="markdownCode.resetCode">Reset</button
-      ><button @click="markdownCode.copyMarkdownCode">Copy</button>
+      ><button class="copy-btn" @click="handleCopy">{{ copyText }}</button>
       <div class="checkbox">
         <input type="checkbox" @change="handleCheckSyncUpdate" />
         <span>Sync Scroll</span>
@@ -38,6 +52,9 @@ function handleGithubClick() {
   .nav-buttons {
     display: flex;
     gap: 8px;
+    .copy-btn {
+      width: 60px;
+    }
     button {
       cursor: pointer;
       background: #222831;

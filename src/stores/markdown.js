@@ -6,6 +6,7 @@ import demo from "./../../demo.md?raw";
 export const useMarkdownStore = defineStore("useMarkDownStore", () => {
   const markdownCode = ref(demo);
   const syncScroll = ref(false);
+  const isDarkMode = ref(false);
 
   const getParedMarkdownData = computed(() => marked(markdownCode.value));
 
@@ -18,13 +19,18 @@ export const useMarkdownStore = defineStore("useMarkDownStore", () => {
   function resetCode() {
     markdownCode.value = demo;
   }
+  function toggleMode() {
+    isDarkMode.value = !isDarkMode.value;
+  }
 
   return {
     markdownCode,
     getParedMarkdownData,
     syncScroll,
+    isDarkMode,
     updateMarkedDownCode,
     copyMarkdownCode,
     resetCode,
+    toggleMode,
   };
 });

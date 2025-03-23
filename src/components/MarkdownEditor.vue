@@ -2,14 +2,21 @@
 import { Codemirror } from "vue-codemirror";
 import { markdown } from "@codemirror/lang-markdown";
 import { useMarkdownStore } from "../stores/markdown";
-import { ref, defineExpose } from "vue";
+import { ref, defineExpose, computed } from "vue";
 import { EditorView } from "@codemirror/view";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 const markdownStore = useMarkdownStore();
 
 const editorContainer = ref(null);
 
-const extensions = [markdown(), EditorView.lineWrapping];
+const computedExtensions = computed(() => {
+  const extensions = [markdown(), EditorView.lineWrapping];
+  if (markdownStore.isDarkMode) {
+    extensions.push(oneDark);
+  }
+  return extensions;
+});
 
 defineExpose({
   editorContainer,
@@ -17,11 +24,15 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="editorContainer" class="editor-code custom-scrollbar">
+  <div
+    ref="editorContainer"
+    class="editor-code custom-scrollbar"
+    :class="[markdownStore.isDarkMode ? 'dark-borer' : 'light-border']"
+  >
     <div>
       <Codemirror
         v-model="markdownStore.markdownCode"
-        :extensions="extensions"
+        :extensions="computedExtensions"
         :autofocus="true"
         :indent-with-tab="true"
         :tab-size="2"

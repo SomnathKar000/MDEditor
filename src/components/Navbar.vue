@@ -1,5 +1,7 @@
 <script setup>
 import Github from "../assets/GitHub.vue";
+import LightIcon from "../assets/LightIcon.vue";
+import DarkIcon from "../assets/DarkIcon.vue";
 import { useMarkdownStore } from "../stores/markdown";
 import { ref } from "vue";
 
@@ -38,7 +40,14 @@ function handleCopy() {
         <span>Sync Scroll</span>
       </div>
     </div>
-    <Github @click="handleGithubClick" />
+    <div class="extra-btns">
+      <LightIcon
+        v-if="markdownCode.isDarkMode"
+        @click="markdownCode.toggleMode"
+      />
+      <DarkIcon v-else @click="markdownCode.toggleMode" />
+      <Github @click="handleGithubClick" />
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -68,6 +77,14 @@ function handleCopy() {
       span {
         font-size: 12px;
       }
+    }
+  }
+  .extra-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    svg {
+      cursor: pointer;
     }
   }
 }

@@ -52,7 +52,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div>
+  <div :class="{ 'dark-mode': markdownStore.isDarkMode }">
     <Navbar />
     <div class="editor-box">
       <MarkdownEditor ref="editorRef" />
@@ -62,6 +62,16 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
+.dark-mode {
+  background-color: #282c34 !important;
+  color: #a7afbc !important;
+}
+.light-border {
+  border-right: 8px solid #eee;
+}
+.dark-borer {
+  border-right: 8px solid #222831;
+}
 .editor-box {
   height: 95vh;
   padding-left: 5px;
@@ -72,7 +82,6 @@ onUnmounted(() => {
 
   .editor-code {
     grid-area: 1 / 1 / 2 / 2;
-    border-right: 8px solid #eee;
   }
   .editor-view {
     padding-left: 8px;

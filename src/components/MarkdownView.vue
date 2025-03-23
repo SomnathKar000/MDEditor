@@ -11,16 +11,26 @@ defineExpose({ previewContainer });
 
 <template>
   <div ref="previewContainer" class="editor-view custom-scrollbar">
-    <div class="preview" v-html="markdownStore.getParedMarkdownData"></div>
+    <div
+      class="preview"
+      :class="{ 'light-mode': !markdownStore.isDarkMode }"
+      v-html="markdownStore.getParedMarkdownData"
+    ></div>
   </div>
 </template>
 
 <style lang="scss">
 .preview {
+  &.light-mode {
+    h1,
+    h2,
+    h3 {
+      color: #333;
+    }
+  }
   h1,
   h2,
   h3 {
-    color: #333;
     border-bottom: 1px solid #d0d7deb3;
     padding-bottom: 0.3rem;
   }

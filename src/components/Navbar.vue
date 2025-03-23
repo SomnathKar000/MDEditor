@@ -7,10 +7,13 @@ const markdownCode = useMarkdownStore();
 function handleCheckSyncUpdate(e) {
   markdownCode.syncScroll = Boolean(e.target.checked);
 }
+
+function handleGithubClick() {
+  window.location.href = "https://github.com/SomnathKar000/MDEditor";
+}
 </script>
 <template>
   <div class="navbar">
-    {{ console.log(useMarkdownStore.syncScroll) }}
     <div class="nav-buttons">
       <img src="/logo2.png" width="40px" />
       <button>MDEditor</button
@@ -21,7 +24,7 @@ function handleCheckSyncUpdate(e) {
         <span>Sync Scroll</span>
       </div>
     </div>
-    <Github />
+    <Github @click="handleGithubClick" />
   </div>
 </template>
 <style scoped lang="scss">

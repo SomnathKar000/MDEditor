@@ -3,12 +3,13 @@ import { Codemirror } from "vue-codemirror";
 import { markdown } from "@codemirror/lang-markdown";
 import { useMarkdownStore } from "../stores/markdown";
 import { ref, defineExpose } from "vue";
+import { EditorView } from "@codemirror/view";
 
 const markdownStore = useMarkdownStore();
 
 const editorContainer = ref(null);
 
-const extensions = [markdown()];
+const extensions = [markdown(), EditorView.lineWrapping];
 
 defineExpose({
   editorContainer,

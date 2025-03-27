@@ -8,7 +8,7 @@ import { ref } from "vue";
 const markdownCode = useMarkdownStore();
 
 const copyText = ref("Copy");
-const timeoutData = null;
+let timeoutData = null;
 
 function handleCheckSyncUpdate(e) {
   markdownCode.syncScroll = Boolean(e.target.checked);
